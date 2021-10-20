@@ -12,23 +12,17 @@ class index(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, self.template)
-
-
-class index(LoginRequiredMixin, View):
-    template = 'index.html'
-    login_url = '/login/'
-
-    def get(self, request):
-        return render(request, self.template)
-
-
+  
 
 class Login(View):
     template = 'login.html'
 
     def get(self, request):
+        args = {}
+        text = "hello world"
+        args['mytext'] = text
         form = AuthenticationForm()
-        return render(request, self.template, {'form': form})
+        return render(request, self.template, {'form': form,'args': args})
 
 
     def post(self, request):
@@ -36,11 +30,14 @@ class Login(View):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
+        args = {}
+        text = "hello world"
+        args['mytext'] = text
         if user is not None:
             login(request, user)
             return HttpResponseRedirect('/')
         else:
-            return render(request, self.template, {'form': form, 'data':"my awesome data"})
+            return render(request, self.template, {'form': form,'args': args})
 
 
 
