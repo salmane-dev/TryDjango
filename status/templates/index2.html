@@ -46,7 +46,7 @@
                     <div class="col-xl-6">
                         <div class="text-center text-white">
                             <!-- Page heading-->
-                            <h4 class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing.</h4>
+                            <h4 class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing.</h4>
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
@@ -81,28 +81,20 @@
                 </div>
                 <div class=" inputs d-flex justify-content-between m-5 p-5">
                     <div class="">
-                        <textarea name="ip_input" id="ip_input" cols="40" rows="15" >
-    45.151.181.17 
-    93.187.130.229
-    45.151.181.17  
-    45.154.117.1 
-    185.56.170.114    
-    179.61.251.116
-    185.229.118.2
+                        <textarea name="ip_input" id="ip_input" cols="40" rows="20">
+{% for key in go1 %}
+{{ key }}
+{% endfor %}
                         </textarea>
                     </div>                
                     <div class="my-auto">
-                        <h2> --  {{ data.data }}   -- </h2>
+                            <h3>>>></h3>  
                     </div>           
                     <div>
-                        <textarea name="ip_input" id="ip_input" cols="40" rows="15">
-    Port 80 is down for 48.186.213.2
-    Port 80 is down for 93.187.130.229
-    Port 80 is down for 45.151.181.17
-    Port 80 is down for 93.187.130.229
-    Port 80 is down for 45.151.181.17
-    Port 80 is down for 45.154.117.1
-    Port 80 is down for 185.56.170.114
+                        <textarea name="ip_input" id="ip_input" cols="40" rows="20">
+{% for key in go2 %}
+{{ key }}
+{% endfor %}
                         </textarea>
                     </div>
                 </div>
