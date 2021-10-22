@@ -30,7 +30,6 @@ class index2(LoginRequiredMixin, View):
         return render(request, self.template, {"go1":go[0], "go2":go[1] })
 
 
-
 class Login(View):
     template = 'login.html'
 
