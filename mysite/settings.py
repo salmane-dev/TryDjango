@@ -38,8 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'polls.apps.PollsConfig'
+=======
+    'status.apps.StatusConfig',
+    'polls.apps.PollsConfig',
+    'scrap.apps.ScrapConfig'
+>>>>>>> 6499d6c1a90149bbab070e377593b754a5b470c1
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
