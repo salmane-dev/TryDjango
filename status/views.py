@@ -25,8 +25,7 @@ class index2(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
-        go = my_function() 
-        print(go)
+        go = my_function()
         return render(request, self.template, {"go1":go[0], "go2":go[1] })
 
 
