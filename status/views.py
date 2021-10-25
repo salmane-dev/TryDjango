@@ -4,12 +4,11 @@ from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-
-import socket  
-from time import sleep, strftime
+import socket   
 import datetime
 import os
 from django.conf import settings
+import httpx
 
  
 class index(LoginRequiredMixin, View):
@@ -24,11 +23,10 @@ class index2(LoginRequiredMixin, View):
     template = 'index2.html'
     login_url = '/login/'
 
-    def get(self, request):
-        go = my_function() 
-        print(go)
-        return render(request, self.template, {"go1":go[0], "go2":go[1] })
-
+    async def get(self, request):
+        go = my_function()
+        return render(request, self.template, {"go1":go[0], "go2":go[1] }) #
+ 
 
 class Login(View):
     template = 'login.html'

@@ -9,3 +9,6 @@ https://docs.djangoproject.com/en/3.2/howto/overriding-templates/
 
 
 old but perhaps advance
+
+install >> october 25 >> pip install uvicorn
+    foloww this https://testdriven.io/blog/django-async-views/
