@@ -34,6 +34,27 @@ class index2(LoginRequiredMixin, View):
         return render(request, self.template, {"go1":go[0], "go2":go[1] }) #
  
 
+
+def http_call_sync():
+    for num in range(1, 3):
+        sleep(1)
+        go = my_function()
+        print(num)
+    r = httpx.get("http://httpbin.org/")
+    print(r)
+
+
+async def async_with_sync_view(request):
+    loop = asyncio.get_event_loop()
+    async_function = sync_to_async(index2.get)
+    loop.create_task(async_function())
+    return HttpResponse("Non-blocking HTTP request (via sync_to_async)")
+
+
+# no isea 
+
+
+
 class Login(View):
     template = 'login.html'
 
@@ -114,12 +135,6 @@ async def http_call_async():
         print(r)
 
 
-def http_call_sync():
-    for num in range(1, 3):
-        sleep(1)
-        print(num)
-    r = httpx.get("http://httpbin.org/")
-    print(r)
 
 
 # views
@@ -204,15 +219,6 @@ async def burn_some_meats(request):
 
 
 ###   Sync to Async   ###
-
-
-async def async_with_sync_view(request):
-    loop = asyncio.get_event_loop()
-    async_function = sync_to_async(http_call_sync)
-    loop.create_task(async_function())
-    return HttpResponse("Non-blocking HTTP request (via sync_to_async)")
-
-
 
 
 
