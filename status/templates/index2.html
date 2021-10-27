@@ -67,5 +67,14 @@
             </div>
         </header>  
 
+        <script>
+            async function getstats() {
+                fetch('http://127.0.0.1:8000/status/http_call_sync')
+                .then(response => response.json())
+                .then(data => console.log(data)); 
+            }
+
+            getstats();
+        </script>
          
 {% endblock %}
