@@ -48,19 +48,15 @@
                 <div class=" inputs d-flex justify-content-between m-5 p-5">
                     <div class="">
                         <textarea name="ip_input" id="ip_input" cols="40" rows="20">
-{% for key in go1 %}
-{{ key }}
-{% endfor %}
+ 
                         </textarea>
                     </div>                
                     <div class="my-auto">
                             <h3>>>></h3>  
                     </div>           
                     <div>
-                        <textarea name="ip_input" id="ip_input" cols="40" rows="20">
-{% for key in go2 %}
-{{ key }}
-{% endfor %}
+                        <textarea name="ip_output" id="ip_output" cols="40" rows="20">
+ 
                         </textarea>
                     </div>
                 </div>
@@ -68,10 +64,21 @@
         </header>  
 
         <script>
+            data0="Loading..."
+            data1="Loading..."
             async function getstats() {
                 fetch('http://127.0.0.1:8000/status/http_call_sync')
                 .then(response => response.json())
-                .then(data => console.log(data)); 
+                .then(data => {
+                        console.log(data)
+                        data0 = data[0]
+                        data1 = data[1]
+                        document.getElementById('ip_input').innerHTML = data0
+                        document.getElementById('ip_output').innerHTML = data1
+                        }
+                    ); 
+                    document.getElementById('ip_input').innerHTML = data0
+                    document.getElementById('ip_output').innerHTML = data1
             }
 
             getstats();

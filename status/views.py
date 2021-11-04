@@ -35,7 +35,7 @@ class index2(LoginRequiredMixin, View):
 
 def http_call_sync(request): 
     go = my_function() 
-    return JsonResponse(go, safe=False)
+    return JsonResponse(go,safe=False)
     
 
  
