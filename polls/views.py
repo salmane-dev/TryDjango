@@ -1,9 +1,33 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.views import View
 
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+# def index(request):
+#     return HttpResponse("Hello, world. You're at the polls index.")
+
+
+
+class Index(View):
+    template = 'index.html'
+
+    def get(self, request):
+        return render(request, self.template)
+
+
+class Tables(View):
+    template = 'tables.html'
+
+    def get(self, request):
+        return render(request, self.template)
+
+class Login(View):
+    template = 'login.html'
+
+    def get(self, request):
+        return render(request, self.template)
+
+
 
 def page2(request):
     return HttpResponse("Hello, Wellkomen zu page II")

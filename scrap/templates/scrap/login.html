@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Login - SB Admin</title>
+        <link href="../static/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <style>
+        
+    </style>
+    <body class="bg-dark  ">
+        <div id="layoutAuthentication flex-fill">
+            <div id="layoutAuthentication_content flex-fill">
+                <main class="flex-fill">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4"> This is {{ args.mytext }}</h3></div>
+                                        <div class="card-body">
+                                                <form method="post" action="/login/">
+                                                    {% csrf_token %}
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                    {{ form.username }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="form-label-group">
+                                                    {{ form.password }}
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary btn-block" type="submit">Login</button>
+                                                </form>
+                                        </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            
+            
+              <!-- Footer-->
+              <footer class="footer fotor mt-auto py-3 bg-light fixed-bottom">
+                <div class="container">
+                    <span class="text-muted">Place sticky footer content here.</span>
+                </div>
+               </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="../static/js/scripts.js"></script>
+        <script>
+            var user = document.getElementById("id_username")
+            var pass = document.getElementById("id_password")
+            user.classList.add("form-control");
+            user.placeholder = "Username";
+            user.type = "text";
+            user.required = "required";
+            user.autofocus = "autofocus";
+            pass.type = "password";
+            pass.placeholder = "Password";
+            pass.classList.add("form-control");
+            pass.required = "required";
+          </script>
+    </body>
+</html>

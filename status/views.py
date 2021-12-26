@@ -30,8 +30,8 @@ class index2(LoginRequiredMixin, View):
     login_url = '/login/'
 
     def get(self, request):
-        return render(request, self.template)
-
+        go = my_function()
+        return render(request, self.template, {"go1":go[0], "go2":go[1] }) 
 
 def http_call_sync(request): 
     go = my_function() 

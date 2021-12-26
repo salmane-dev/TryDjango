@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
+    path('login', views.login, name='login'),
+    path('index2', views.index, name='index2'),
     # path('scrap_show', views.scrap_show, name = 'scrap_show'),
     # path('page2/', views.page2, name='page2'),
     # # ex: /polls/5/

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}My scraping project{% endblock %}
+ 
+{% block content %}
+ 
+ <!-- Icons Grid-->
+ <section class="features-icons bg-light text-center">
+  <div class="container">
+            <h2>OKAAAY, LET'S GOOOO</h2>
+              
+              {% for article in articles %}
+                <h6>{{  article }}</h6>
+              {% endfor %}
+
+
+
+  </div>
+</section> 
+<h2> </h2>
+
+{% endblock %}
