@@ -10,9 +10,8 @@ def index(request):
     title_a = []
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
-    while yes < 30:
-        url = 'https://graphicmama.com/blog/page/'+str(yes)+'/'
-        print(url)
+    while yes < 1:
+        url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
         r = requests.get(url, headers=headers)
         yes = yes+1
         if r.status_code == 200:
@@ -20,15 +19,17 @@ def index(request):
             articles = soup.find_all('li', class_ = 'post')
             for article in articles:
                 title = article.find('h5')
-                title_a.append(title.find('a').text)
+                title_a.append({'text':title.find('a').text,'link':title.find('a').get("href")}) 
+                # print(title.find('a').get("href"))
         else:
             return render(request, 'scrap/index.html', context={'articles':title_a})
     return render(request, 'scrap/index.html', context={'articles':title_a})
 
 
-
 def login(request):
     return HttpResponse("Hello, Wellkomen zu Login page")
 
+
 def index2(request):
     return HttpResponse("Hello, Wellkomen zu page II")
+

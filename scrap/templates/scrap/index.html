@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "scrap/base.html" %}
 
 {% block title %}My scraping project{% endblock %}
  
@@ -9,14 +9,22 @@
   <div class="container">
             <h2>OKAAAY, LET'S GOOOO</h2>
               
+            <div class="row d-flex justify-content-between">
+              
               {% for article in articles %}
-                <h6>{{  article }}</h6>
+              <div class="col-lg-3">
+                  <div>
+                      <img src={{ article.link }} alt={{ article.text }}>
+                  </div>
+                  <a href={{ article.link }} class=" col-lg-3  "><h6>{{ article.text }}</h6></a>
+                </div>
               {% endfor %}
+
+            </div>
 
 
 
   </div>
-</section> 
-<h2> </h2>
+</section>  
 
 {% endblock %}
