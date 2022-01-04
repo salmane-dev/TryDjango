@@ -13,7 +13,7 @@
     <title>{% block title %}My amazing site {% endblock %}</title>
 </head>
 
-<body>
+<body class="min-vh-100">
     <div id="navbar">
         {% block sidebar %}
          <!-- Navigation-->
@@ -25,10 +25,10 @@
           <div class="collapse navbar-collapse " id="navbarText">
             <ul class="navbar-nav ms-auto mx-5">
               <li class="nav-item active">
-                <a class="nav-link mx-3" href="/status/">Home sss</a>
+                <a class="nav-link mx-3" href="/scrap/">Home</a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link mx-3" href="/status/index2">page II  </a>
+                <a class="nav-link mx-3" href="/scrap/index2">page II  </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link mx-3" href="#">Features</a>
@@ -53,10 +53,10 @@
     </div>
 
 
-  <div id="footer" class="footer sticky-bottom">
+  <div id="footer" class="footer mt-auto bottom ">
     {% block footer %}
       <!-- Footer-->
-      <footer class="footer bg-light">
+      <footer class="footer bg-light mt-auto bottom">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 h-100 text-center text-lg-start my-auto">

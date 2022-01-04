@@ -10,7 +10,7 @@ def index(request):
     title_a = []
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
-    while yes < 1:
+    while yes < 3:
         url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
         r = requests.get(url, headers=headers)
         yes = yes+1
@@ -31,5 +31,6 @@ def login(request):
 
 
 def index2(request):
-    return HttpResponse("Hello, Wellkomen zu page II")
+    return render(request, 'scrap/index2.html', context={'msg':'Page II'})
+
 
