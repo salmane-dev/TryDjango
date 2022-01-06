@@ -3,14 +3,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import requests
 from bs4 import BeautifulSoup
-
+# import time
+# import progressbar
+# pip install progressbar2
 
 def index(request):
     yes = 1
-    title_a = []
+    articles_list = []
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
-    while yes < 3:
+
+    # for i in progressbar.progressbar(range(20)):
+    #     time.sleep(0.1)
+
+    while yes < 2:
         url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
         r = requests.get(url, headers=headers)
         yes = yes+1
@@ -18,12 +24,36 @@ def index(request):
             soup = BeautifulSoup(r.content, features="html.parser")
             articles = soup.find_all('li', class_ = 'post')
             for article in articles:
+                img = article.find('img', class_ = 'wp-post-image')['src']
                 title = article.find('h5')
-                title_a.append({'text':title.find('a').text,'link':title.find('a').get("href")}) 
-                # print(title.find('a').get("href"))
+                my_link = title.find('a').get("href").rsplit('/', 3)[2]
+                articles_list.append({'text':title.find('a').text,
+                                    'link':title.find('a').get("href"),
+                                    'img':img,
+                                    'mylink':my_link    
+                                    }) 
         else:
-            return render(request, 'scrap/index.html', context={'articles':title_a})
-    return render(request, 'scrap/index.html', context={'articles':title_a})
+            return render(request, 'scrap/index.html', context={'articles':articles_list})
+    return render(request, 'scrap/index.html', context={'articles':articles_list})
+
+
+def blog(request, question_id):
+ 
+    url = 'https://graphicmama.com/blog/'+ question_id
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
+    r = requests.get(url, headers=headers)
+    print(url)
+    if r.status_code == 200:
+        soup = BeautifulSoup(r.content, features="html.parser")
+        article = soup.find_all('div', class_ = 'post__entry') 
+        print(len(article))
+        return render(request, 'scrap/blog.html', context={'article':article})
+    else:
+        return render(request, 'scrap/index.html', context={'article':"article"})
+
+
+
+
 
 
 def login(request):

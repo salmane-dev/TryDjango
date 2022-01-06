@@ -25,8 +25,8 @@ class index(LoginRequiredMixin, View):
         return render(request, self.template)
   
   
-class index2(LoginRequiredMixin, View):
-    template = 'index2.html'
+class checker(LoginRequiredMixin, View):
+    template = 'checker.html'
     login_url = '/login/'
 
     def get(self, request):

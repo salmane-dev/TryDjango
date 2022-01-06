@@ -1,4 +1,4 @@
-{% extends "scrap/base.html" %}
+{% extends "base.html" %}
 
 {% block title %}My scraping project{% endblock %}
  
@@ -7,22 +7,19 @@
  <!-- Icons Grid-->
  <section class="features-icons bg-light text-center">
   <div class="container">
-            <h2>OKAAAY, LET'S GOOOO</h2>
-              
+            <h2>OKAAAY, LET'S GOOOO</h2> 
             <div class="row d-flex justify-content-between m-0">
-              
               {% for article in articles %}
-              <div class="col-lg-4 p-1">
-                  <div>
-                      <img src={{ article.link }} alt={{ article.text }} >
-                  </div>
-                  <a href={{ article.link }} class=" col-lg-3  "><h6>{{ article.text }}</h6></a>
+              <div class="col-lg-4 p-3">
+                  <a href={{ article.mylink }} class=" col-lg-3  ">
+                      <div>
+                          <img src={{ article.img }} alt={{ article.text }} class="w-100" >
+                      </div>
+                      <h5>{{ article.text }}</h5>
+                  </a>
                 </div>
               {% endfor %}
-
             </div>
-
-
 
   </div>
 </section>  
