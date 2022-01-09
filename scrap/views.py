@@ -43,7 +43,7 @@ def blog(request, question_id):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
     if r.status_code == 200:
-        # time.sleep(2)
+        #time.sleep(2)
         print("got get it")
         soup = BeautifulSoup(r.content, features="html.parser")
         article = soup.find_all('div', class_ = 'post__entry') 
