@@ -46,7 +46,7 @@ def blog(request, question_id):
         #time.sleep(2)
         print("got get it")
         soup = BeautifulSoup(r.content, features="html.parser")
-        article = soup.find_all('div', class_ = 'post__entry') 
+        article = soup.find_all('div', class_ = 'content') 
         return render(request, 'scrap/blog.html', context={'article':article})
     else:
         return render(request, 'scrap/index.html', context={'article':"article"})
