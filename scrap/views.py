@@ -37,24 +37,23 @@ def index(request):
     return render(request, 'scrap/index.html', context={'articles':articles_list})
 
 
+
 def blog(request, question_id):
  
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
-    if r.status_code == 200:
-        #time.sleep(2)
-        print("got get it")
+    if r.status_code == 200: 
         soup = BeautifulSoup(r.content, features="html.parser")
         article = soup.find_all('div', class_ = 'content') 
-        return render(request, 'scrap/blog.html', context={'article':article})
+
+        article = str(article).replace('[','\n').replace(']','\n')
+
+        return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'fff':'fff'}})
     else:
-        return render(request, 'scrap/index.html', context={'article':"article"})
-
-
-
-
-
+        return render(request, 'scrap/index.html', context={'go':{'article':"No Article Found", 'fff':'fff'}})
+ 
+ 
 
 def login(request):
     return HttpResponse("Hello, Wellkomen zu Login page")
