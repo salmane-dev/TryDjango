@@ -11394,6 +11394,12 @@ footer.footer {
   height: 100%;  
 }
 
+.not-visible{
+  display: none !important;
+}
+ 
+
+
 
 /**********************  End of my stuff  *********************/
 /**********************  End of my stuff  *********************/
