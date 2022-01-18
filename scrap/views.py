@@ -1,22 +1,27 @@
+from xml.sax.saxutils import prepare_input_source
 from bs4.builder import HTMLTreeBuilder
 from django.shortcuts import render
 from django.http import HttpResponse
 import requests
 from bs4 import BeautifulSoup
+from django.http import JsonResponse
 import time
 # import progressbar
 # pip install progressbar2
 
+
 def index(request):
     yes = 1
     articles_list = []
+    page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
+    print(page)
+    if page > 1: 
+        print(page)
+        return HttpResponse('html response')
+
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
-
-    # for i in progressbar.progressbar(range(20)):
-    #     time.sleep(0.1)
-
-    while yes < 2:
+    while yes <= 1:
         url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
         r = requests.get(url, headers=headers)
         yes = yes+1
@@ -38,38 +43,45 @@ def index(request):
 
 
 
-
-def more_blogs(request, page):
+def more_blogs(request ):
+    print("def more_blogs(request ):")
+    page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
+    print(request.GET.get('page'))
     yes = 1
     articles_list = []
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
- 
-    while yes < page:
-        url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
-        r = requests.get(url, headers=headers)
-        yes = yes+1
-        if r.status_code == 200 and page >= yes:
-            soup = BeautifulSoup(r.content, features="html.parser")
-            articles = soup.find_all('li', class_ = 'post')
-            for article in articles:
-                img = article.find('img', class_ = 'wp-post-image')['src']
-                title = article.find('h5')
-                my_link = title.find('a').get("href").rsplit('/', 3)[2]
-                articles_list.append({'text':title.find('a').text,
-                                    'link':title.find('a').get("href"),
-                                    'img':img,
-                                    'mylink':my_link    
-                                    }) 
-        else:
-            return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
-    return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
+    print("goooooooooooooo")  
+    url = 'https://graphicmama.com/blog/page/'+str(page)+'/' 
+    r = requests.get(url, headers=headers)
+    yes = yes+1
+    if r.status_code == 200 and page >= yes:
+        soup = BeautifulSoup(r.content, features="html.parser")
+        articles = soup.find_all('li', class_ = 'post')
+        for article in articles:
+            img = article.find('img', class_ = 'wp-post-image')['src']
+            title = article.find('h5')
+            my_link = title.find('a').get("href").rsplit('/', 3)[2]
+            articles_list.append({'text':title.find('a').text,
+                                'link':title.find('a').get("href"),
+                                'img':img,
+                                'mylink':my_link    
+                                }) 
+    else:
+        # return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
+        return HttpResponse("more blogogs ")
+    return HttpResponse("more blogogs")
 
 
 
 
  
 def blog(request, question_id):
+    
+    print("blogoooo 555")
+    page = int(request.GET.get('page'))
+    print(page)
+
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)

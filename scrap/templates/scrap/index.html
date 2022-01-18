@@ -21,16 +21,19 @@
               {% endfor %}
             </div>
             <button class="p-2 px-5 load_more visible" >More</button>
-            <br>
+            <!-- <a href="http://127.0.0.1:8000/scrap/?page=5">More</a> -->
+             <br>
           </div>
         
           <div class="spinner-border text-primary mt-2 not-visible" role="status" id="spinner">
             <span class="sr-only"></span>
           </div>
-
-          <small >  page  {{ page }}    </small>
+ 
         </section>  
 
+        <div class="container text-center" >
+          page<small> {{ page }} </small>
+        </div>
 
 
 
@@ -39,54 +42,35 @@
 
 <script>
 
-console.log("Gooolaaacooo")
-  
-   
-  console.log($(".load_more").text())
-  
- 
     $(".load_more").click(function(){
-       
       const spinner = document.getElementById('spinner');
       $("#spinner").removeClass("not-visible");
-
-
-      if($(this).text() == "More") {
-      $.ajax({
-                url: 'http://127.0.0.1:8000/scrap/more_blogs',
-                type: 'GET',
-                data: {
-                    'page': "{{page}}"
-                },
-                // beforeSend: function () {
-                //     loadBtn.classList.add('not-visible');
-                //     spinner.classList.remove('not-visible');
-                // },
-                success: function (response) {
-                    const data = response.posts
-                    // spinner.classList.add('not-visible')
-                    data.map(post => {
-                        console.log(post.title);
-                        content_container.innerHTML += `<div class="single_content border border-success mt-2 pl-2">
-                                                            <h3>${post.title}</h3>
-                                                            <p>${post.desc}</p>
-                                                        </div>`
-                    })
-                    if (_current_item == total) {
-                        alert.classList.remove('not-visible');
-                    } else {
-                        loadBtn.classList.remove('not-visible');
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                },
-            });
-          }
-          else{
-            $(this).text("traaaaaaa"); 
-            console.log("Gooolaaacooo")
-          }
+        if($(this).text() == "More") {
+        $.ajax({
+                  url: "http://127.0.0.1:8000/scrap/more_blogs/?page={{page}}",
+                  type: 'GET',
+                  // data: {
+                  //     'page': 5
+                  // },
+                  // beforeSend: function () {
+                  //     loadBtn.classList.add('not-visible');
+                  //     spinner.classList.remove('not-visible');
+                  // },
+                  success: function (response) {
+                      const data = response
+                      // spinner.classList.add('not-visible')
+                      console.log(response);
+                      $("#spinner").addClass("not-visible");
+                  },
+                  error: function (err) {
+                      console.log(err);
+                  },
+              });
+            }
+            else{
+              $(this).text("traaaaaaa"); 
+              console.log("Gooolaaacooo")
+            }
 
     });  
  

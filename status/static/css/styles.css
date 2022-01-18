@@ -11396,6 +11396,7 @@ footer.footer {
 
 .not-visible{
   display: none !important;
+  transition:opacity 5s linear !important;
 }
  
 
