@@ -8,7 +8,7 @@
  <section class="features-icons bg-light text-center">
   <div class="container">
             <h2>OKAAAY, LET'S GOOOO</h2> 
-            <div class="row d-flex justify-content-between m-0">
+            <div id="posts" class="row d-flex justify-content-between m-0">
               {% for article in articles %}
               <div class="col-lg-4 p-3">
                   <a href={{ article.mylink }} class=" col-lg-3  ">
@@ -57,10 +57,19 @@
                   //     spinner.classList.remove('not-visible');
                   // },
                   success: function (response) {
-                      const data = response
-                      // spinner.classList.add('not-visible')
-                      console.log(response);
+                      const data = JSON.parse(response)  
+                      // $("#posts").removeClass("not-visible");
+                      for (const prop in data) {
+                        console.log(`  ${data[prop].text}`);
+
+
+
+
+
+                      }
+                      console.log('doooooooone')
                       $("#spinner").addClass("not-visible");
+
                   },
                   error: function (err) {
                       console.log(err);

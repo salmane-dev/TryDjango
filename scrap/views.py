@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 from django.http import JsonResponse
 import time
+import json
 # import progressbar
 # pip install progressbar2
 
@@ -45,17 +46,15 @@ def index(request):
 
 def more_blogs(request ):
     print("def more_blogs(request ):")
-    page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
+    page = int(request.GET.get('page')) if  request.GET.get('page')  else 1
     print(request.GET.get('page'))
-    yes = 1
+    print(page)
     articles_list = []
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
-    print("goooooooooooooo")  
     url = 'https://graphicmama.com/blog/page/'+str(page)+'/' 
     r = requests.get(url, headers=headers)
-    yes = yes+1
-    if r.status_code == 200 and page >= yes:
+    if r.status_code == 200:
         soup = BeautifulSoup(r.content, features="html.parser")
         articles = soup.find_all('li', class_ = 'post')
         for article in articles:
@@ -65,12 +64,15 @@ def more_blogs(request ):
             articles_list.append({'text':title.find('a').text,
                                 'link':title.find('a').get("href"),
                                 'img':img,
-                                'mylink':my_link    
+                                'mylink':my_link 
                                 }) 
+        articles_list.append({'page':page})
+
     else:
-        # return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
-        return HttpResponse("more blogogs ")
-    return HttpResponse("more blogogs")
+        data = json.dumps( articles_list )
+        return JsonResponse(data,safe=False)
+    data = json.dumps( articles_list )
+    return JsonResponse(data,safe=False)
 
 
 
