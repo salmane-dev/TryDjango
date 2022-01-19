@@ -8,7 +8,7 @@
  <section class="features-icons bg-light text-center">
   <div class="container">
             <h2>OKAAAY, LET'S GOOOO</h2> 
-            <div id="posts" class="row d-flex justify-content-between m-0">
+            <div id="posts" class="row d-flex justify-content-between justify-content-md-center m-0">
               {% for article in articles %}
               <div class="col-lg-4 p-3">
                   <a href={{ article.mylink }} class=" col-lg-3  ">
@@ -20,8 +20,7 @@
                 </div>
               {% endfor %}
             </div>
-            <button class="p-2 px-5 load_more visible" >More</button>
-            <!-- <a href="http://127.0.0.1:8000/scrap/?page=5">More</a> -->
+            <button class="p-2 px-5 load_more visible" >More</button> 
              <br>
           </div>
         
@@ -32,7 +31,7 @@
         </section>  
 
         <div class="container text-center" >
-          page<small> {{ page }} </small>
+          page <h3 id="pagination" class="opacity-75"> {{ page }} </h3>
         </div>
 
 
@@ -41,35 +40,39 @@
 </script>
 
 <script>
+  
+  $(".load_more").click(function(){
+    $(".load_more").addClass("not-visible");
+    const spinner = document.getElementById('spinner');
+    $("#spinner").removeClass("not-visible");
 
-    $(".load_more").click(function(){
-      const spinner = document.getElementById('spinner');
-      $("#spinner").removeClass("not-visible");
+    // var page = parseInt(page)
+      var page = $("#pagination").text() 
+      npage =  parseInt(page)
+      npage = npage +1
         if($(this).text() == "More") {
         $.ajax({
-                  url: "http://127.0.0.1:8000/scrap/more_blogs/?page={{page}}",
+                  url: "http://127.0.0.1:8000/scrap/more_blogs/?page="+npage  ,
                   type: 'GET',
-                  // data: {
-                  //     'page': 5
-                  // },
-                  // beforeSend: function () {
-                  //     loadBtn.classList.add('not-visible');
-                  //     spinner.classList.remove('not-visible');
-                  // },
                   success: function (response) {
-                      const data = JSON.parse(response)  
-                      // $("#posts").removeClass("not-visible");
+                      const data = JSON.parse(response)   
                       for (const prop in data) {
-                        console.log(`  ${data[prop].text}`);
-
-
-
-
-
-                      }
-                      console.log('doooooooone')
+                            if (data[prop].text){
+                            // console.log(`  ${data[prop].text}`);
+                            $("#posts").append(`
+                                <div class="col-lg-4 p-3">
+                                  <a href="${data[prop].mylink}" class=" col-lg-3  ">
+                                    <div>
+                                      <img src=${data[prop].img} alt="Web" design="" trends="" 2022:="" weaponizing="" chaos="" to="" deliver="" unforgettable="" ux="" class="w-100">
+                                    </div>
+                                    <h5>${data[prop].text}</h5>
+                                  </a>
+                                </div>`);
+                              }
+                      } 
                       $("#spinner").addClass("not-visible");
-
+                      $(".load_more").removeClass("not-visible");
+                      $("#pagination").text(data[9].page)
                   },
                   error: function (err) {
                       console.log(err);
@@ -77,8 +80,7 @@
               });
             }
             else{
-              $(this).text("traaaaaaa"); 
-              console.log("Gooolaaacooo")
+              $(this).text("traaaaaaa");  
             }
 
     });  

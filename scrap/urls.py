@@ -7,7 +7,7 @@ urlpatterns = [
     path('login', views.login, name='login'),
     path('index2', views.index2, name='index2'),
     path('more_blogs/', views.more_blogs, name='more_blogs'),
-    # path('<question_id>/', views.blog, name='blog'),
+    path('<question_id>/', views.blog, name='blog'),
     # path('scrap_show', views.scrap_show, name = 'scrap_show'),
     # path('page2/', views.page2, name='page2'),
     # # ex: /polls/5/results/

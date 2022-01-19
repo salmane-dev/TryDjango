@@ -44,13 +44,9 @@ def index(request):
 
 
 
-def more_blogs(request ):
-    print("def more_blogs(request ):")
-    page = int(request.GET.get('page')) if  request.GET.get('page')  else 1
-    print(request.GET.get('page'))
-    print(page)
+def more_blogs(request ): 
+    page = int(request.GET.get('page')) 
     articles_list = []
-    url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     url = 'https://graphicmama.com/blog/page/'+str(page)+'/' 
     r = requests.get(url, headers=headers)
@@ -76,13 +72,12 @@ def more_blogs(request ):
 
 
 
-
  
 def blog(request, question_id):
     
-    print("blogoooo 555")
-    page = int(request.GET.get('page'))
-    print(page)
+    # print("blogoooo 555")
+    # page = int(request.GET.get('page'))
+    # print(page)
 
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
