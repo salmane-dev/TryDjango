@@ -1,3 +1,4 @@
+from html.parser import HTMLParser
 from xml.sax.saxutils import prepare_input_source
 from bs4.builder import HTMLTreeBuilder
 from django.shortcuts import render
@@ -15,11 +16,6 @@ def index(request):
     yes = 1
     articles_list = []
     page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
-    print(page)
-    if page > 1: 
-        print(page)
-        return HttpResponse('html response')
-
     url = 'https://graphicmama.com/blog/page/'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     while yes <= 1:
@@ -45,6 +41,16 @@ def index(request):
 
 
 def more_blogs(request ): 
+    #sanitazation za3ma
+    # try:  
+    #     print ("ssssssssssssssssssssssssssssssssss")
+    #     print (type(int(request.GET.get('page')))) 
+    # except AttributeError: 
+    #     print ("except except except except except")
+    #     print("not a valid number")
+    #     return HttpResponse('Something Definitely Went Wrong')
+    print('here we go')
+
     page = int(request.GET.get('page')) 
     articles_list = []
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
@@ -74,11 +80,6 @@ def more_blogs(request ):
 
  
 def blog(request, question_id):
-    
-    # print("blogoooo 555")
-    # page = int(request.GET.get('page'))
-    # print(page)
-
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
