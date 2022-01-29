@@ -13,6 +13,7 @@ import json
 
 
 def index(request):
+    print(request.GET.get('title','default'))
     yes = 1
     articles_list = []
     page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
@@ -41,6 +42,8 @@ def index(request):
 
 
 def more_blogs(request ): 
+    print(request.GET.get('title','default'))
+
     #sanitazation za3ma
     # try:  
     #     print ("ssssssssssssssssssssssssssssssssss")
@@ -49,9 +52,9 @@ def more_blogs(request ):
     #     print ("except except except except except")
     #     print("not a valid number")
     #     return HttpResponse('Something Definitely Went Wrong')
-    print('here we go')
-
-    page = int(request.GET.get('page')) 
+ 
+    page = int(request.GET.get('page'))
+    print(page)
     articles_list = []
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     url = 'https://graphicmama.com/blog/page/'+str(page)+'/' 
@@ -69,7 +72,6 @@ def more_blogs(request ):
                                 'mylink':my_link 
                                 }) 
         articles_list.append({'page':page})
-
     else:
         data = json.dumps( articles_list )
         return JsonResponse(data,safe=False)
@@ -77,23 +79,20 @@ def more_blogs(request ):
     return JsonResponse(data,safe=False)
 
 
-
  
-def blog(request, question_id):
+def blog(request, question_id): 
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
     if r.status_code == 200: 
         soup = BeautifulSoup(r.content, features="html.parser")
         article = soup.find_all('div', class_ = 'content') 
-
+        title = soup.find('h1').text
         article = str(article).replace('[','\n').replace(']','\n')
-
-        return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'fff':'fff'}})
+        return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'title':title}})
     else:
         return render(request, 'scrap/index.html', context={'go':{'article':"No Article Found", 'page':'fff'}})
 
- 
 
 
 

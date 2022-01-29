@@ -11,7 +11,7 @@
             <div id="posts" class="row d-flex justify-content-between justify-content-md-center m-0">
               {% for article in articles %}
               <div class="col-lg-4 p-3">
-                  <a href={{ article.mylink }} class="col-lg-3 gotoblogo">
+                  <a href="{{ article.mylink }}"  class="col-lg-3 gotoblogo">
                       <div>
                           <img src={{ article.img }} alt={{ article.text }} class="w-100">
                       </div>
@@ -42,11 +42,15 @@
 
 <script>
   
+
+   
+
+  //  Load more blogs //
+
   $(".load_more").click(function(){
     $(".load_more").addClass("not-visible");
     const spinner = document.getElementById('spinner');
     $("#spinner").removeClass("not-visible");
-
     // var page = parseInt(page)
       var page = $("#pagination").text() 
       npage =  parseInt(page)
@@ -81,20 +85,28 @@
               });
             }
             else{
-              $(this).text("traaaaaaa");  
+              $(this).text("traaaaaaa");
             }
-    });  
+    });
 
-    $(".gotoblogo").click(function(e){
+
+    $(".gotoblogo__").click(function(e){
       e.preventDefault();
-      alert(this.href)
-      if(this.href){
+      go = this.href.substring(this.href.lastIndexOf('/') + 1)
+      title = this.innerText
+      if(this.innerText){
+        // alert(this.innerText)
         $.ajax({
-                url: "http://127.0.0.1:8000/scrap/",
+                url: "http://127.0.0.1:8000/scrap/"+go+"/?title="+title,
                 type: 'GET',
+                data:{
+                  title2: "somehting2"
+                },
                 success: function (response) {
-                    const data = JSON.parse(response)   
-                    console.log(response)
+                    // console.log("data")
+                    // const data = JSON.parse(response)   
+                    console.log(this.href)
+                    window.location.assign(this.href);
                 },
                 error: function (err) {
                     console.log(err);
@@ -104,6 +116,8 @@
             else{
               $(this).text("traaaaaaa");  
             }
+            console.log("go wlla sssssssssssssssssssss s")
+
 
     })
  

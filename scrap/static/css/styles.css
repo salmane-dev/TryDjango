@@ -11398,5 +11398,10 @@ footer.footer {
   height: 100%;  
 }
 
+.content .post img{
+width:100% !important;
+}
+
+
 /**********************  End of my stuff  *********************/
 
