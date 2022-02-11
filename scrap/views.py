@@ -20,10 +20,18 @@ def index(request):
 
     pwd = os.path.dirname(__file__) 
     x_fil = ET.parse(pwd + '/static/file2.xml')
-    update = ET.SubElement(x_fil.getroot(), "channel")
+    # update = ET.SubElement(x_fil.getroot(), "channel")
     # update.text = "new_text"
     # update.attrib["value"] = "1"
-    print(ET.tostring(update, encoding = "unicode"))
+    # tree = ET.parse(x_fil)
+
+    root = x_fil.getroot()
+    print(root[0][0].text)
+    go = len(root[0]) 
+    print( go )
+    for i in {0,go-1}:  
+        print(root[0][i].text )
+        print(' [i] ')
 
 
     yes = 1
