@@ -31,12 +31,12 @@
 <script>
           go = $('img')
           $.each(go, function( index, value ) {
-            img_link  = $(value).attr("data-src")
+            img_link  = $(value).attr("data-lazy-src")
             $(value).attr("src", img_link) 
             $(value).addClass("w-100")
         });
-        $("#content > section > div > div > div > div:nth-child(3)").hide() 
 
+        $("#content > section > div > div > div > div:nth-child(3)").hide() 
         $('.post__share').hide()
 
 </script>

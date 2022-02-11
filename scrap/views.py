@@ -7,13 +7,25 @@ import requests
 from bs4 import BeautifulSoup
 from django.http import JsonResponse
 import time
+import os
 import json
+import xml.etree.ElementTree as ET
+
 # import progressbar
 # pip install progressbar2
-
+  
 
 def index(request):
     print(request.GET.get('title','default'))
+
+    pwd = os.path.dirname(__file__) 
+    x_fil = ET.parse(pwd + '/static/file2.xml')
+    update = ET.SubElement(x_fil.getroot(), "channel")
+    # update.text = "new_text"
+    # update.attrib["value"] = "1"
+    print(ET.tostring(update, encoding = "unicode"))
+
+
     yes = 1
     articles_list = []
     page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
@@ -27,13 +39,13 @@ def index(request):
             soup = BeautifulSoup(r.content, features="html.parser")
             articles = soup.find_all('li', class_ = 'post')
             for article in articles:
-                img = article.find('img', class_ = 'wp-post-image')['src']
+                img = article.find('img', class_ = 'wp-post-image')['data-lazy-src']
                 title = article.find('h5')
                 my_link = title.find('a').get("href").rsplit('/', 3)[2]
                 articles_list.append({'text':title.find('a').text,
                                     'link':title.find('a').get("href"),
                                     'img':img,
-                                    'mylink':my_link    
+                                    'mylink':my_link 
                                     }) 
         else:
             return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
@@ -54,7 +66,6 @@ def more_blogs(request ):
     #     return HttpResponse('Something Definitely Went Wrong')
  
     page = int(request.GET.get('page'))
-    print(page)
     articles_list = []
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     url = 'https://graphicmama.com/blog/page/'+str(page)+'/' 
@@ -63,7 +74,7 @@ def more_blogs(request ):
         soup = BeautifulSoup(r.content, features="html.parser")
         articles = soup.find_all('li', class_ = 'post')
         for article in articles:
-            img = article.find('img', class_ = 'wp-post-image')['src']
+            img = article.find('img', class_ = 'wp-post-image')['data-lazy-src']
             title = article.find('h5')
             my_link = title.find('a').get("href").rsplit('/', 3)[2]
             articles_list.append({'text':title.find('a').text,
