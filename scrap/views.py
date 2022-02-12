@@ -26,12 +26,13 @@ def index(request):
     # tree = ET.parse(x_fil)
 
     root = x_fil.getroot()
-    print(root[0][0].text)
+    #print(root[0][0].text)
+    ji = len(root) 
     go = len(root[0]) 
-    print( go )
-    for i in {0,go-1}:  
-        print(root[0][i].text )
-        print(' [i] ')
+    print( root[0] )
+    for j in range(ji):
+        for i in range(go):
+            print(root[j][i].tag) 
 
 
     yes = 1
