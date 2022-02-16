@@ -29,10 +29,11 @@ def index(request):
     #print(root[0][0].text)
     ji = len(root) 
     go = len(root[0]) 
-    print( root[0] )
-    for j in range(ji):
-        for i in range(go):
-            print(root[j][i].tag) 
+    # print( root[0] )
+    for item in root.iter("item"):
+        print(item.text)  
+        # item.text = str(new_rank)
+        # item.set('changed', 'yes') 
 
 
     yes = 1
