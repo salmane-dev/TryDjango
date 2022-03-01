@@ -13,24 +13,27 @@
         <div class="main">
             
             <h1>Profit Calculator</h1>
-                <form class="calculator" name="calculator">
-                   
+                <form class="calculator" name="calculator" onchange="javascript:multiply();">
                     <table>
                         <tr>
                             <th>Spent :</th>
-                            <th><input type="text" name="Spent"></th> 
+                            <th><input type="text" name="Spent" class="keys" placeholder="$"> </th> 
+                            <th>: الاستثمار</th>
                         </tr>
                         <tr>
-                            <td>Buying price :</td>
-                            <td><input type="text" name="price1"></td> 
+                            <th>Percentage :</th>
+                            <th><input type="text" name="price1" class="keys" placeholder="%"> </th> 
+                            <th>: النسبة</th>
                         </tr>
                         <tr>
-                            <td>Current price :</td>
-                            <td><input type="text" name="price2"></td> 
+                            <th>Current price :</th>
+                            <th><input type="text" name="price2" class="keys" > </th> 
+                            <th>: الاستثمار</th>
                         </tr>
                         <tr>
-                            <td>Profit :</td>
-                            <td><input type="text" name="Profit"></td> 
+                            <th>Profit :</th>
+                            <th><input type="text" name="Profit" class="keys" > </th> 
+                            <th>: الربح </th>
                         </tr>
                     </table>
 
@@ -50,12 +53,26 @@
 
     
     <script>
-          function multiply(){
-                      a = Number(document.calculator.Spent.value);
-                      b = Number(document.calculator.price1.value);
-                      c = a * b;
-                      document.calculator.Profit.value=c;
-                  }
+
+            const calculator = document.querySelector('.calculator')
+            const keys = calculator.querySelectorAll('.keys')
+            // alert(keys.length)
+            // keys.addEventListener('keyup', e => {
+            //     multiply()
+            // })
+
+            keys.forEach(el => el.addEventListener('keyup', event => {
+                multiply()
+            }));
+
+            function multiply(){
+                a = Number(document.calculator.Spent.value);
+                b = Number(document.calculator.price1.value);
+                c = a * b/100;
+                document.calculator.Profit.value=c;
+            }
+
+
     </script>
     
 
