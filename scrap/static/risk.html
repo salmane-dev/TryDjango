@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <head>
     <link rel="stylesheet" href="risk_css.css">
+    <title>RISKY</title>
 </head>
 <html lang="en">
    
- 
-
  <body>
      
     <div class="container">
-   
         <div class="main">
-            
             <h1>Profit Calculator</h1>
                 <form class="calculator" name="calculator" onchange="javascript:multiply();">
                     <table>
                         <tr>
                             <th>Spent :</th>
-                            <th><input type="text" name="Spent" class="keys" placeholder="$"> </th> 
+                            <th><input type="number" name="Spent" class="keys" placeholder="$"> </th> 
                             <th>: الاستثمار</th>
                         </tr>
                         <tr>
                             <th>Percentage :</th>
-                            <th><input type="text" name="price1" class="keys" placeholder="%"> </th> 
+                            <th><input type="number" name="perc" class="keys" placeholder="%"> </th> 
                             <th>: النسبة</th>
                         </tr>
                         <tr>
-                            <th>Current price :</th>
-                            <th><input type="text" name="price2" class="keys" > </th> 
-                            <th>: الاستثمار</th>
+                            <th>Buy :</th>
+                            <th><input type="number" name="price1" class="keys" > </th> 
+                            <th>:  الشراء </th>
                         </tr>
                         <tr>
+                            <th>Sell :</th>
+                            <th><input type="number" name="price2" class="keys" > </th> 
+                            <th>: البيع </th>
+                        </tr>
+
+                        <tr>
+                            <th> </th>
+                            <th class="button">
+                                <input type="button" value="Calculate" onclick="javascript:percontage();">
+                            </th>
+                            <th> </th>
+
+                        </tr>
+
+                        <tr class="m2">
                             <th>Profit :</th>
-                            <th><input type="text" name="Profit" class="keys" > </th> 
+                            <th><input type="number" name="Profit" class="keys" > </th> 
                             <th>: الربح </th>
                         </tr>
                     </table>
 
-                    <div class="button">
-                    <input type="button" value="Calculate" onclick="javascript:multiply();">
-                    </div>
+                    <!-- <iframe src="https://whale-alert.io/transaction-map-embed.shtml" height="150%" width="100%" style="border:0px #ffffff none;" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" allowfullscreen></iframe> -->
                 </form>
-
-                 
-
-                <!-- <iframe src="https://whale-alert.io/transaction-map-embed.shtml" height="150%" width="100%" style="border:0px #ffffff none;" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" allowfullscreen></iframe> -->
-     
         </div>
     </div>
 
 
-
-    
     <script>
 
             const calculator = document.querySelector('.calculator')
@@ -67,11 +70,23 @@
 
             function multiply(){
                 a = Number(document.calculator.Spent.value);
-                b = Number(document.calculator.price1.value);
-                c = a * b/100;
-                document.calculator.Profit.value=c;
+                b = Number(document.calculator.perc.value);
+                if (a && b){
+                    c = a * b/100;
+                    document.calculator.Profit.value = c.toFixed(2);
+                }
             }
 
+            function percontage(){
+                d = Number(document.calculator.price1.value);
+                e = Number(document.calculator.price2.value);
+                if (d && e){
+                    c = (e - d)
+                    c = c / d *100  
+                    document.calculator.perc.value=  (d && e) ?  c.toFixed(4) : Number(document.calculator.perc.value);
+                }
+                multiply()
+            }
 
     </script>
     
