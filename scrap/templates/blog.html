@@ -1,0 +1,44 @@
+{% extends "base.html" %} 
+
+{% block title %}My scraping project{% endblock %}
+ 
+{% block content %}
+ 
+ <!-- Icons Grid-->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+ <section class="features-icons bg-light  ">
+  <div class="container ">
+    <div class="row d-flex justify-content-between m-0 ">
+      
+      <div class="col-2 p-1  ">
+      </div> 
+      
+      <div class="col-8 p-1  ">
+              <h1 class="py-4">{{   go.title  }}</h1> 
+              {% autoescape off %}
+                    {{   go.article  }}
+              {% endautoescape %}
+            </div>
+
+            <div class="col-2 p-1  ">
+            </div> 
+
+        </div>
+  </div>
+</section>
+
+<script>
+          go = $('img')
+          $.each(go, function( index, value ) {
+            img_link  = $(value).attr("data-lazy-src")
+            $(value).attr("src", img_link) 
+            $(value).addClass("w-100")
+        });
+
+        $("#content > section > div > div > div > div:nth-child(3)").hide() 
+        $('.post__share').hide()
+
+</script>
+
+{% endblock %}

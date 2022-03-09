@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}My scraping project{% endblock %}
+ 
+{% block content %}
+ 
+ <!-- Icons Grid-->
+ <section class="features-icons bg-light text-center">
+  <div class="container">
+            <h2>OKAAAY, LET'S GOOOO</h2> 
+            <div id="posts" class="row d-flex justify-content-between justify-content-md-center m-0">
+              {% for article in articles %}
+              <div class="col-lg-4 p-3">
+                  <a href="{{ article.mylink }}"  class="col-lg-3 gotoblogo">
+                      <div>
+                          <img src={{ article.img }} alt={{ article.text }} class="w-100">
+                      </div>
+                      <h5>{{ article.text }}</h5>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+            <button class="p-2 px-5 load_more visible" >More</button> 
+             <br>
+          </div>
+        
+          <div class="spinner-border text-primary mt-2 not-visible" role="status" id="spinner">
+            <span class="sr-only"></span>
+          </div>
+ 
+        </section>  
+
+        <div class="container text-center h4" >
+           <p class="text-inline">  page <span id="pagination" class="opacity-75"> {{ page }} </span>  </p>  
+        </div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" >
+</script>
+
+
+<script>
+  
+
+   
+
+  //  Load more blogs //
+
+  $(".load_more").click(function(){
+    $(".load_more").addClass("not-visible");
+    const spinner = document.getElementById('spinner');
+    $("#spinner").removeClass("not-visible");
+    // var page = parseInt(page)
+      var page = $("#pagination").text() 
+      npage =  parseInt(page)
+      npage = npage +1
+        if($(this).text() == "More") {
+        $.ajax({
+                  url: "http://127.0.0.1:8000/scrap/more_blogs/?page="+npage  ,
+                  type: 'GET',
+                  success: function (response) {
+                      const data = JSON.parse(response)   
+                      for (const prop in data) {
+                            if (data[prop].text){
+                            // console.log(`  ${data[prop].text}`);
+                            $("#posts").append(`
+                                <div class="col-lg-4 p-3">
+                                  <a href="${data[prop].mylink}" class=" col-lg-3  ">
+                                    <div>
+                                      <img src=${data[prop].img} alt="Web" design="" trends="" 2022:="" weaponizing="" chaos="" to="" deliver="" unforgettable="" ux="" class="w-100">
+                                    </div>
+                                    <h5>${data[prop].text}</h5>
+                                  </a>
+                                </div>`);
+                              }
+                      } 
+                      $("#spinner").addClass("not-visible");
+                      $(".load_more").removeClass("not-visible");
+                      $("#pagination").text(data[9].page)
+                  },
+                  error: function (err) {
+                      console.log(err);
+                  },
+              });
+            }
+            else{
+              $(this).text("traaaaaaa");
+            }
+    });
+
+
+    $(".gotoblogo__").click(function(e){
+      e.preventDefault();
+      go = this.href.substring(this.href.lastIndexOf('/') + 1)
+      title = this.innerText
+      if(this.innerText){
+        // alert(this.innerText)
+        $.ajax({
+                url: "http://127.0.0.1:8000/scrap/"+go+"/?title="+title,
+                type: 'GET',
+                data:{
+                  title2: "somehting2"
+                },
+                success: function (response) {
+                    // console.log("data")
+                    // const data = JSON.parse(response)   
+                    console.log(this.href)
+                    window.location.assign(this.href);
+                },
+                error: function (err) {
+                    console.log(err);
+                },
+            });
+            }
+            else{
+              $(this).text("traaaaaaa");  
+            }
+            console.log("go wlla sssssssssssssssssssss s")
+
+
+    })
+ 
+
+</script>
+
+ 
+
+
+
+{% endblock %}

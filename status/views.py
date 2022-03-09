@@ -4,16 +4,14 @@ from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-import socket   
+import socket
 import datetime
 import os
-from django.conf import settings
-import httpx
-import asyncio
+from django.conf import settings  
 from time import sleep
-from typing import List
-import random
-from asgiref.sync import sync_to_async
+from typing import List  
+import json
+
 
 
  
@@ -37,6 +35,7 @@ def http_call_sync(request):
     go = my_function() 
     return JsonResponse(go,safe=False)
     
+
 
  
 
@@ -104,5 +103,7 @@ def my_function():
     # except :
         print("Something went wrong")
     return thislist
-         
-  
+      
+
+
+      

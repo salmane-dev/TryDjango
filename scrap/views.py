@@ -2,22 +2,68 @@ from html.parser import HTMLParser
 from xml.sax.saxutils import prepare_input_source
 from bs4.builder import HTMLTreeBuilder
 from django.shortcuts import render
-from django.http import HttpResponse
 import requests
-from bs4 import BeautifulSoup
-from django.http import JsonResponse
-import time
+from bs4 import BeautifulSoup 
 import os
-import json
 import xml.etree.ElementTree as ET
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+from webpush import send_user_notification
+from django.shortcuts import render
+from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
+from django.views import View
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings  
+from time import sleep
+from typing import List 
+from asgiref.sync import sync_to_async 
+from django.views.decorators.http import require_GET, require_POST
+import json
+
+
+
 
 # import progressbar
 # pip install progressbar2
   
 
+
+  
+@require_GET
+def home(request):
+    webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
+    user = request.user
+    return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
+
+   
+@require_POST
+@csrf_exempt
+def send_push(request):
+    try:
+        body = request.body
+        data = json.loads(body)
+
+        if 'head' not in data or 'body' not in data or 'id' not in data:
+            return JsonResponse(status=400, data={"message": "Invalid data format"})
+
+        user_id = data['id']
+        user = get_object_or_404(User, pk=user_id)
+        payload = {'head': data['head'], 'body': data['body']}
+        send_user_notification(user=user, payload=payload, ttl=1000)
+
+        return JsonResponse(status=200, data={"message": "Web push successful"})
+    except TypeError:
+        return JsonResponse(status=500, data={"message": "An error occurred"})
+
+
+        
+
 def index(request):
     print(request.GET.get('title','default'))
-
     pwd = os.path.dirname(__file__) 
     x_fil = ET.parse(pwd + '/static/file2.xml')
     # update = ET.SubElement(x_fil.getroot(), "channel")
@@ -117,11 +163,12 @@ def blog(request, question_id):
 
 
 
-def login(request):
+def index1(request):
     return HttpResponse("Hello, Wellkomen zu Login page")
 
 
 def index2(request):
     return render(request, 'scrap/index2.html', context={'msg':'Page II'})
+
 
 

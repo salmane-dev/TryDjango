@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', 
     'status.apps.StatusConfig',
     'polls.apps.PollsConfig',
-    'scrap.apps.ScrapConfig'
+    'scrap.apps.ScrapConfig',
+    'webpush',
 ]
 
 
@@ -103,6 +104,13 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+WEBPUSH_SETTINGS = {
+   "VAPID_PUBLIC_KEY": "BBrI5PjpyaBv0rH-llS3qU6USDP5x3YNIHQ7a94d4lcAbwXx2wu4p0fZR6ygzibnUF8QV1dlJvepO2CmhgcZ5AY",
+   "VAPID_PRIVATE_KEY": "EXZUERIHnjyseO2SrX-OY4NmbWUSMe01N4ScUwZSraI",
+   "VAPID_ADMIN_EMAIL": "salmanebenbihi@gmail.com"
+}
 
 
 # Internationalization

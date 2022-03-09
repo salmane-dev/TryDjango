@@ -14,29 +14,29 @@
                     <table>
                         <tr>
                             <th>Spent :</th>
-                            <th><input type="number" name="Spent" class="keys" placeholder="$"> </th> 
+                            <th><input type="number" name="Spent" class="keys" placeholder="...">$ </th> 
                             <th>: الاستثمار</th>
                         </tr>
                         <tr>
                             <th>Percentage :</th>
-                            <th><input type="number" name="perc" class="keys" placeholder="%"> </th> 
+                            <th><input type="text" name="perc" class="keys" placeholder="...">% </th> 
                             <th>: النسبة</th>
                         </tr>
                         <tr>
                             <th>Buy :</th>
-                            <th><input type="number" name="price1" class="keys" > </th> 
+                            <th><input type="number" name="price1" class="keys" placeholder="...">$ </th> 
                             <th>:  الشراء </th>
                         </tr>
                         <tr>
                             <th>Sell :</th>
-                            <th><input type="number" name="price2" class="keys" > </th> 
+                            <th><input type="number" name="price2" class="keys" placeholder="...">$ </th> 
                             <th>: البيع </th>
                         </tr>
 
                         <tr>
                             <th> </th>
                             <th class="button">
-                                <input type="button" value="Calculate" onclick="javascript:percontage();">
+                                <input type="button" value="Calculate" onclick="javascript:percontage();"> 
                             </th>
                             <th> </th>
 
@@ -44,12 +44,12 @@
 
                         <tr class="m2">
                             <th>Profit :</th>
-                            <th><input type="number" name="Profit" class="keys" > </th> 
+                            <th><input type="number" name="Profit" class="keys" placeholder="...">$</th> 
                             <th>: الربح </th>
                         </tr>
                     </table>
 
-                    <!-- <iframe src="https://whale-alert.io/transaction-map-embed.shtml" height="150%" width="100%" style="border:0px #ffffff none;" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" allowfullscreen></iframe> -->
+                    <iframe src="https://whale-alert.io/transaction-map-embed.shtml" height="150%" width="100%" style="border:0px #ffffff none;" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" allowfullscreen></iframe>
                 </form>
         </div>
     </div>
@@ -59,10 +59,6 @@
 
             const calculator = document.querySelector('.calculator')
             const keys = calculator.querySelectorAll('.keys')
-            // alert(keys.length)
-            // keys.addEventListener('keyup', e => {
-            //     multiply()
-            // })
 
             keys.forEach(el => el.addEventListener('keyup', event => {
                 multiply()
@@ -83,7 +79,7 @@
                 if (d && e){
                     c = (e - d)
                     c = c / d *100  
-                    document.calculator.perc.value=  (d && e) ?  c.toFixed(4) : Number(document.calculator.perc.value);
+                    document.calculator.perc.value=  (d && e) ?  c.toFixed(3) : Number(document.calculator.perc.value);
                 }
                 multiply()
             }
