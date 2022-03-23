@@ -22,7 +22,7 @@ from typing import List
 from asgiref.sync import sync_to_async 
 from django.views.decorators.http import require_GET, require_POST
 import json
-
+import pprint
 
 
 
@@ -35,7 +35,7 @@ import json
 @require_GET
 def home(request):
     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
-    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
+    vapid_key = webpush_settings.get('BBrI5PjpyaBv0rH-llS3qU6USDP5x3YNIHQ7a94d4lcAbwXx2wu4p0fZR6ygzibnUF8QV1dlJvepO2CmhgcZ5AY')
     user = request.user
     return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
 
@@ -95,14 +95,14 @@ def index(request):
             soup = BeautifulSoup(r.content, features="html.parser")
             articles = soup.find_all('li', class_ = 'post')
             for article in articles:
-                img = article.find('img', class_ = 'wp-post-image')['data-lazy-src']
                 title = article.find('h5')
+                img = article.find('img' )['data-lazy-src']
                 my_link = title.find('a').get("href").rsplit('/', 3)[2]
                 articles_list.append({'text':title.find('a').text,
                                     'link':title.find('a').get("href"),
                                     'img':img,
                                     'mylink':my_link 
-                                    }) 
+                                    })  
         else:
             return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
     return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
