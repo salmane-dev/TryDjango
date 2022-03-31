@@ -60,6 +60,8 @@ def send_push(request):
         return JsonResponse(status=500, data={"message": "An error occurred"})
 
 
+
+
         
 
 def index(request):
