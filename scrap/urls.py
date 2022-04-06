@@ -15,6 +15,5 @@ urlpatterns = [
     path('<question_id>/', views.blog, name='blog'),
     path('send_push', send_push),
     path('webpush/', include('webpush.urls')),
-    path('sw.js', TemplateView.as_view(template_name='sw.js', content_type='application/x-javascript'))
-
+    path('sw.js', TemplateView.as_view(template_name='sw.js', content_type='application/x-javascript')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

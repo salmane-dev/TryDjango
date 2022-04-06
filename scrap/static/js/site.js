@@ -20,10 +20,6 @@ pushForm.addEventListener('submit', async function (e) {
         const res = await fetch('/send_push', {
             method: 'POST',
             body: JSON.stringify({head, body, id}),
-            headers: {
-                'X-CSRFToken': csrftoken,
-                'content-type': 'application/json'
-            }
         });
         if (res.status === 200) {
             button.innerText = 'Send another 😃!';

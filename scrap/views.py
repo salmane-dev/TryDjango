@@ -35,7 +35,7 @@ import pprint
 @require_GET
 def home(request):
     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
-    vapid_key = webpush_settings.get('BBrI5PjpyaBv0rH-llS3qU6USDP5x3YNIHQ7a94d4lcAbwXx2wu4p0fZR6ygzibnUF8QV1dlJvepO2CmhgcZ5AY')
+    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
     user = request.user
     return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
 
@@ -58,7 +58,6 @@ def send_push(request):
         return JsonResponse(status=200, data={"message": "Web push successful"})
     except TypeError:
         return JsonResponse(status=500, data={"message": "An error occurred"})
-
 
 
 

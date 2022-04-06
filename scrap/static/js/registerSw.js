@@ -1,3 +1,4 @@
+
 const registerSw = async () => {
     if ('serviceWorker' in navigator) {
         const reg = await navigator.serviceWorker.register('sw.js');
@@ -7,10 +8,6 @@ const registerSw = async () => {
         showNotAllowed("You can't send push notifications ☹️😢")
     }
 };
-
-
-
-/*--*/
 
 const initialiseState = (reg) => {
     if (!reg.showNotification) {
@@ -33,10 +30,6 @@ const showNotAllowed = (message) => {
     button.innerHTML = `${message}`;
     button.setAttribute('disabled', 'true');
 };
-
-
-
-/*-*/
 
 function urlB64ToUint8Array(base64String) {
     const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -70,11 +63,6 @@ const subscribe = async (reg) => {
     sendSubData(sub)
 };
 
-
-
-
-/*   send the subscription data to the server  / */
-
 const sendSubData = async (subscription) => {
     const browser = navigator.userAgent.match(/(firefox|msie|chrome|safari|trident)/ig)[0].toLowerCase();
     const data = {
@@ -87,7 +75,6 @@ const sendSubData = async (subscription) => {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            {{'X-CSRFToken': csrftoken}},
             'content-type': 'application/json'
         },
         credentials: "include"
@@ -101,6 +88,4 @@ const handleResponse = (res) => {
 };
 
 registerSw();
-
-
 
