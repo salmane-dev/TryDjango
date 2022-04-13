@@ -9,6 +9,7 @@ const registerSw = async () => {
     }
 };
 
+
 const initialiseState = (reg) => {
     if (!reg.showNotification) {
         showNotAllowed('Showing notifications isn\'t supported ☹️😢');
@@ -70,8 +71,8 @@ const sendSubData = async (subscription) => {
         subscription: subscription.toJSON(),
         browser: browser,
     };
-
-    const res = await fetch('/webpush/save_information', {
+    console.log('anything')
+    const res = await fetch('/scrap/webpush/save_information', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -87,5 +88,8 @@ const handleResponse = (res) => {
     console.log(res.status);
 };
 
+// registerSw();
+// registerSw();
+// registerSw();
 registerSw();
 

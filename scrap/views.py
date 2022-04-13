@@ -33,6 +33,7 @@ import pprint
 
   
 @require_GET
+# @csrf_exempt
 def home(request):
     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
     vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
@@ -40,28 +41,30 @@ def home(request):
     return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
 
    
-@require_POST
 @csrf_exempt
+@require_POST
 def send_push(request):
+    return HttpResponse('<h1>Home Page<h1>')
+
     try:
         body = request.body
         data = json.loads(body)
-
         if 'head' not in data or 'body' not in data or 'id' not in data:
             return JsonResponse(status=400, data={"message": "Invalid data format"})
-
         user_id = data['id']
         user = get_object_or_404(User, pk=user_id)
         payload = {'head': data['head'], 'body': data['body']}
         send_user_notification(user=user, payload=payload, ttl=1000)
-
         return JsonResponse(status=200, data={"message": "Web push successful"})
     except TypeError:
         return JsonResponse(status=500, data={"message": "An error occurred"})
 
 
 
-        
+def page_not_found_view(request, exception):
+    return HttpResponse('<h1>4040404040404<h1>', status=404)
+
+
 
 def index(request):
     print(request.GET.get('title','default'))
@@ -131,7 +134,8 @@ def more_blogs(request ):
         soup = BeautifulSoup(r.content, features="html.parser")
         articles = soup.find_all('li', class_ = 'post')
         for article in articles:
-            img = article.find('img', class_ = 'wp-post-image')['data-lazy-src']
+            # img = article.find('img', class_ = 'wp-post-image')['data-lazy-src']
+            img = article.find('img' )['data-lazy-src']
             title = article.find('h5')
             my_link = title.find('a').get("href").rsplit('/', 3)[2]
             articles_list.append({'text':title.find('a').text,
@@ -170,6 +174,3 @@ def index1(request):
 
 def index2(request):
     return render(request, 'scrap/index2.html', context={'msg':'Page II'})
-
-
-

@@ -13,11 +13,13 @@ pushForm.addEventListener('submit', async function (e) {
     const meta = document.querySelector('meta[name="user_id"]');
     const id = meta ? meta.content : null;
 
+
     if (head && body && id) {
         button.innerText = 'Sending...';
         button.disabled = true;
-
-        const res = await fetch('/send_push', {
+        console.log('head')
+        console.log(head)
+        const res = await fetch('/scrap/send_push', {
             method: 'POST',
             body: JSON.stringify({head, body, id}),
         });
@@ -30,6 +32,8 @@ pushForm.addEventListener('submit', async function (e) {
             errorMsg.innerText = res.message;
             button.innerText = 'Something broke 😢..  Try again?';
             button.disabled = false;
+            console.log(res)
+
         }
     }
     else {
@@ -41,5 +45,6 @@ pushForm.addEventListener('submit', async function (e) {
             error = "Are you sure you're logged in? 🤔. Make sure! 👍🏼"
         }
         errorMsg.innerText = error;
+        console.log(res.message)
     }    
 });
