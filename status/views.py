@@ -103,7 +103,10 @@ def my_function():
     # except :
         print("Something went wrong")
     return thislist
-      
+ 
 
-
-      
+ 
+def custom_404(request, exception):
+    print("request")
+    print(request)
+    return HttpResponse('<h1>404040     4040404<h1>', status=404)

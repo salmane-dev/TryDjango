@@ -71,12 +71,14 @@ const sendSubData = async (subscription) => {
         subscription: subscription.toJSON(),
         browser: browser,
     };
-    console.log('anything')
+    console.log('browser')
+    console.log(subscription.toJSON())
     const res = await fetch('/scrap/webpush/save_information', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
-            'content-type': 'application/json'
+            'content-type': 'application/json',
+            'X-CSRFToken': "{% csrf_token %}"
         },
         credentials: "include"
     });
@@ -84,8 +86,7 @@ const sendSubData = async (subscription) => {
     handleResponse(res);
 };
 
-const handleResponse = (res) => {
-    console.log(res.status);
+const handleResponse = (res) => { 
 };
 
 // registerSw();

@@ -10,4 +10,5 @@ urlpatterns = [
     path('login', views.Login.as_view(), name='login'),
     path("admin/", admin.site.urls) ,
 ]
+#handler404 = 'scrap.views.custom_404' #new 
 

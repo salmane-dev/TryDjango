@@ -1,16 +1,14 @@
 from html.parser import HTMLParser
 from xml.sax.saxutils import prepare_input_source
-from bs4.builder import HTMLTreeBuilder
-from django.shortcuts import render
+from bs4.builder import HTMLTreeBuilder 
 import requests
 from bs4 import BeautifulSoup 
 import os
 import xml.etree.ElementTree as ET
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from webpush import send_user_notification
-from django.shortcuts import render
+from webpush import send_user_notification 
 from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
 from django.views import View
 from django.contrib.auth.forms import AuthenticationForm
@@ -21,8 +19,10 @@ from time import sleep
 from typing import List 
 from asgiref.sync import sync_to_async 
 from django.views.decorators.http import require_GET, require_POST
-import json
-import pprint
+import json 
+import pprint 
+# from django.shortcuts import render_to_response
+# from django.template import RequestContext
 
 
 
@@ -30,6 +30,19 @@ import pprint
 # pip install progressbar2
   
 
+def custom_404(request, exception):
+    print("request")
+    print(request)
+    return render(request, "scrap/404.html")
+
+
+
+def custom_404(request, exception):  
+    print("request")
+    print(request)
+    return HttpResponse('<h1>4040404040404<h1>' )
+
+    
 
   
 @require_GET
@@ -41,32 +54,30 @@ def home(request):
     return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
 
    
-@csrf_exempt
 @require_POST
+@csrf_exempt
 def send_push(request):
-    return HttpResponse('<h1>Home Page<h1>')
-
     try:
         body = request.body
         data = json.loads(body)
+        print("data")
+        print(data)
         if 'head' not in data or 'body' not in data or 'id' not in data:
             return JsonResponse(status=400, data={"message": "Invalid data format"})
         user_id = data['id']
         user = get_object_or_404(User, pk=user_id)
         payload = {'head': data['head'], 'body': data['body']}
         send_user_notification(user=user, payload=payload, ttl=1000)
+
         return JsonResponse(status=200, data={"message": "Web push successful"})
     except TypeError:
         return JsonResponse(status=500, data={"message": "An error occurred"})
 
 
 
-def page_not_found_view(request, exception):
-    return HttpResponse('<h1>4040404040404<h1>', status=404)
-
-
-
+ 
 def index(request):
+    print("index index index index")
     print(request.GET.get('title','default'))
     pwd = os.path.dirname(__file__) 
     x_fil = ET.parse(pwd + '/static/file2.xml')
@@ -84,8 +95,6 @@ def index(request):
         print(item.text)  
         # item.text = str(new_rank)
         # item.set('changed', 'yes') 
-
-
     yes = 1
     articles_list = []
     page = int(request.GET.get('page'))+1 if  request.GET.get('page')  else 1
@@ -108,14 +117,13 @@ def index(request):
                                     'mylink':my_link 
                                     })  
         else:
-            return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
+                return HttpResponse('<h1>4040404040404<h1>', status=404)
     return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
 
 
-
-def more_blogs(request ): 
+def more_blogs(request): 
+    print("more_blogs more_blogs more_blogs more_blogs")
     print(request.GET.get('title','default'))
-
     #sanitazation za3ma
     # try:  
     #     print ("ssssssssssssssssssssssssssssssssss")
@@ -153,9 +161,11 @@ def more_blogs(request ):
 
  
 def blog(request, question_id): 
+    print("blog blog blog blog blog")
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
+    print(r.status_code)
     if r.status_code == 200: 
         soup = BeautifulSoup(r.content, features="html.parser")
         article = soup.find_all('div', class_ = 'content') 
@@ -163,7 +173,7 @@ def blog(request, question_id):
         article = str(article).replace('[','\n').replace(']','\n')
         return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'title':title}})
     else:
-        return render(request, 'scrap/index.html', context={'go':{'article':"No Article Found", 'page':'fff'}})
+        return render(request, 'scrap/index.html', context={'go':{'article':'404', 'page':'0'}})
 
 
 
@@ -172,5 +182,9 @@ def index1(request):
     return HttpResponse("Hello, Wellkomen zu Login page")
 
 
-def index2(request):
-    return render(request, 'scrap/index2.html', context={'msg':'Page II'})
+def index2(request, exception):
+    print("request")
+    print(exception)
+    return HttpResponse('<h1> index2 <h1>' )
+
+
