@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 
+
 urlpatterns = [
     path('', views.index, name='index'),
     path('home', views.home, name='home'),
@@ -23,3 +24,4 @@ urlpatterns = [
 #handler500 = 'scrap.views.handler500'
 
 handler404 = 'scrap.views.index2' #new   
+

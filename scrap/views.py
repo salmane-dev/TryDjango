@@ -42,25 +42,29 @@ def custom_404(request, exception):
     print(request)
     return HttpResponse('<h1>4040404040404<h1>' )
 
-    
+
 
   
 @require_GET
 # @csrf_exempt
 def home(request):
+    print("request request request request request")
+    print(request)
     webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
     vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
     user = request.user
-    return render(request, 'home.html', {user: user, 'vapid_key': vapid_key})
+    return render(request, 'scrap/home.html', {user: user, 'vapid_key': vapid_key})
 
-   
+ 
 @require_POST
 @csrf_exempt
 def send_push(request):
     try:
+        print("******* ******* request ******* *******")
+        print(request)
         body = request.body
         data = json.loads(body)
-        print("data")
+        print("data data data data data ")
         print(data)
         if 'head' not in data or 'body' not in data or 'id' not in data:
             return JsonResponse(status=400, data={"message": "Invalid data format"})

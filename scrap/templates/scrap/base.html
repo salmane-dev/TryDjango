@@ -8,19 +8,19 @@
       <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
       <!-- Core theme CSS (includes Bootstrap)-->
       <link rel="icon" type="image/x-icon" href="/static/assets/favicon.ico"/> 
-      <link href="/static/css/styles.css" type="text/css" rel="stylesheet"/>
-
-    <title>{% block title %}My amazing site{% endblock %}</title>
-
+      {% load static %}
+      <link href="{% static '/css/push.css' %}" rel="stylesheet"> 
+      <title>{% block title %} {% endblock %}</title>
 </head>
-
 <body class="opacity-25">
     <div id="navbar">
         {% block sidebar %}
          <!-- Navigation-->
          <nav class="navbar navbar-expand-lg navbar-light bg-light mx-4 px-5">
-          <a class="navbar-brand mx-4" href="#"><h2>Scrappper</h2></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand mx-4" href="#"><h2>Scrapper</h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" 
+                  data-target="#navbarText" aria-controls="navbarText" 
+                  aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse " id="navbarText">
@@ -73,7 +73,7 @@
                         <li class="list-inline-item">⋅</li>
                         <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
                     </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2021. All Rights Reserved.</p>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2022. All Rights Reserved.</p>
                 </div>
                 <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                     <ul class="list-inline mb-0">
