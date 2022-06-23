@@ -32,9 +32,9 @@ form > h3 {
 form > .error {
     margin: 0;
     font-size: 15px;
-    font-weight: normal;
-    color: orange;
-    opacity: 0.7;
+    font-weight: 600;
+    color: #ff7440;
+    opacity: 1.7;
 }
 
 form > input, form > textarea {

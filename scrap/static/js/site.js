@@ -7,8 +7,9 @@ pushForm.addEventListener('submit', async function (e) {
     const input = this[0];
     const textarea = this[1];
     const button = this[2];
-    errorMsg.value = '';
-
+    errorMsg.innerHTML = '';
+    const msgs =  document.querySelector("#send-push__form > span")
+    console.log(msgs)
     const head = input.value;
     const body = textarea.value;
     const meta = document.querySelector('meta[name="user_id"]');
@@ -29,7 +30,7 @@ pushForm.addEventListener('submit', async function (e) {
             }
         });
         if (res.status === 200) {
-            button.innerText = 'Send another 😃!';
+            msgs.innerText = 'Send another 😃!';
             button.disabled = false;
             input.value = '';
             textarea.value = '';
