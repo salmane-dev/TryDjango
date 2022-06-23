@@ -37,30 +37,18 @@ def custom_404(request, exception):
 
 
 
-def custom_404(request, exception):  
-    print("request")
-    print(request)
-    return HttpResponse('<h1>4040404040404<h1>' )
-
-
-
-  
 @require_GET
-# @csrf_exempt
 def home(request):
-    print("request request request request request")
-    print(request)
-    webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
-    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
-    user = request.user
-    return render(request, 'scrap/home.html', {user: user, 'vapid_key': vapid_key})
-
+   webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+   vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
+   user = request.user
+   return render(request, 'scrap/home.html', {user: user, 'vapid_key': vapid_key})
  
 @require_POST
 @csrf_exempt
 def send_push(request):
     try:
-        print("******* ******* request ******* *******")
+        print("******* ******* ******* ******* ******* ******* ******* *******")
         print(request)
         body = request.body
         data = json.loads(body)
@@ -78,8 +66,6 @@ def send_push(request):
         return JsonResponse(status=500, data={"message": "An error occurred"})
 
 
-
- 
 def index(request):
     print("index index index index")
     print(request.GET.get('title','default'))
@@ -164,11 +150,11 @@ def more_blogs(request):
 
 
  
-def blog(request, question_id): 
-    print("blog blog blog blog blog")
+def blog(request, question_id):  
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
+    print("r.status_code")  
     print(r.status_code)
     if r.status_code == 200: 
         soup = BeautifulSoup(r.content, features="html.parser")
@@ -177,18 +163,7 @@ def blog(request, question_id):
         article = str(article).replace('[','\n').replace(']','\n')
         return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'title':title}})
     else:
-        return render(request, 'scrap/index.html', context={'go':{'article':'404', 'page':'0'}})
+        return render(request, 'scrap/404.html', context={'go':{'article':'404', 'page':'0'}})
 
 
-
-
-def index1(request):
-    return HttpResponse("Hello, Wellkomen zu Login page")
-
-
-def index2(request, exception):
-    print("request")
-    print(exception)
-    return HttpResponse('<h1> index2 <h1>' )
-
-
+  

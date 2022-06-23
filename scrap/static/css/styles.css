@@ -11402,12 +11402,19 @@ footer.footer {
 width:100% !important;
 }
 
+.page404{
+  height: 70vh;
+}
+
+#content{
+text-align: center!important;  
+}
 
 /**********************  End of my stuff  *********************/
 
 body {
   height: 100%;
-  background: rgba(0, 0, 0, 0.87);
+  /* background: rgba(0, 0, 0, 0.87); */
   font-family: 'PT Sans', sans-serif;
 }
 

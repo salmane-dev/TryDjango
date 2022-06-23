@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'status.apps.StatusConfig',
     'polls.apps.PollsConfig',
     'scrap.apps.ScrapConfig',
-    'webpush',
+    'webpush'
 ]
 
 

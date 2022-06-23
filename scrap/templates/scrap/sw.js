@@ -1,7 +1,5 @@
-//Add the following code, which tells the service worker to listen for push events:
- // Register event listener for the 'push' event.
-
- self.addEventListener('push', function (event) {
+// Register event listener for the 'push' event.
+self.addEventListener('push', function (event) {
     // Retrieve the textual payload from event.data (a PushMessageData object).
     // Other formats are supported (ArrayBuffer, Blob, JSON), check out the documentation
     // on https://developer.mozilla.org/en-US/docs/Web/API/PushMessageData.
@@ -18,4 +16,3 @@
         })
     );
 });
-

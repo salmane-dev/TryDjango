@@ -1,2 +1,10 @@
-<h1>404 Page Not Found</h1>
-<p>My Custom 404 Page Not Found!</p>
+{% extends "scrap/base.html" %}
+{% block title %}Web Push{% endblock %}
+{% block content %}
+{% load static %} 
+        <div class="page404">
+            <h1>404 Page Not Found</h1>
+            <p>My Custom 404 Page Not Found!</p>
+        </div>
+{% endblock %}
+

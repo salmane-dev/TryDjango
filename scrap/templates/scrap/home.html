@@ -2,18 +2,26 @@
 {% block title %}Web Push{% endblock %}
 {% block content %}
 {% load static %}
-    <meta name="vapid-key" content="{{ vapid_key }}">
-    {% if user.id %}
-        <meta name="user_id" content="{{ user.id }}">
-    {% endif %} 
-        <div>
-            <form id="send-push__form">
-                <h3 class="header">Send a push notification</h3>
-                <p class="error"></p>
-                <input type="text" name="head" placeholder="Header: Your favorite airline 😍">
-                <textarea name="body" id="" cols="30" rows="10" placeholder="Body: Your flight has been cancellllled 😱000😱"></textarea>
-                <button>Send Me</button>
-            </form>
-        </div> 
+
+<meta name="vapid-key" content="{{ vapid_key }}">
+{% if user.id %}
+<meta name="user_id" content="{{ user.id }}">
+{% endif %} 
+<div>
+    {% csrf_token %}
+    <form id="send-push__form">
+        {% csrf_token %}
+        <h3 class="header">Send a push notification</h3>
+        <p class="error"></p>
+        <input type="text" name="head" placeholder="Header: Your favorite airline 😍">
+        <textarea name="body" id="" cols="30" rows="10" placeholder="Body: Your flight has been cancellllled 😱000😱"> </textarea>
+        <button>Send Me</button>
+    </form>
+</div> 
+
+
+<script src="{% static '/js/registerSw.js' %}" defer></script>
+<script src="{% static '/js/site.js' %}" defer></script>
+
 
 {% endblock %}

@@ -1,13 +1,11 @@
-
 const registerSw = async () => {
     if ('serviceWorker' in navigator) {
-        const reg = await navigator.serviceWorker.register('sw.js');
+        const reg = await navigator.serviceWorker.register('../sw.js');
         initialiseState(reg)
-
     } else {
-        showNotAllowed("You can't send push notifications ☹️😢")
+        showNotAllowed("You can't send push notifications ☹️😢")  
     }
-};
+}
 
 
 const initialiseState = (reg) => {
@@ -15,6 +13,7 @@ const initialiseState = (reg) => {
         showNotAllowed('Showing notifications isn\'t supported ☹️😢');
         return
     }
+
     if (Notification.permission === 'denied') {
         showNotAllowed('You prevented us from showing notifications ☹️🤔');
         return
@@ -56,8 +55,8 @@ const subscribe = async (reg) => {
     const key = vapidMeta.content;
     const options = {
         userVisibleOnly: true,
-        // if key exists, create applicationServerKey property
         ...(key && {applicationServerKey: urlB64ToUint8Array(key)})
+        // if key exists, create applicationServerKey property
     };
 
     const sub = await reg.pushManager.subscribe(options);
@@ -71,14 +70,16 @@ const sendSubData = async (subscription) => {
         subscription: subscription.toJSON(),
         browser: browser,
     };
-    console.log('browser')
-    console.log(subscription.toJSON())
-    const res = await fetch('/scrap/webpush/save_information', {
+    const toko = document.querySelector('[name="csrfmiddlewaretoken"]').value 
+
+    const res = await fetch('../webpush/save_information', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
             'content-type': 'application/json',
-            'X-CSRFToken': "{% csrf_token %}"
+            'Accept': 'application/json', 
+            'X-CSRFToken': toko
+        
         },
         credentials: "include"
     });
@@ -86,11 +87,8 @@ const sendSubData = async (subscription) => {
     handleResponse(res);
 };
 
-const handleResponse = (res) => { 
-};
+const handleResponse = (res) => {
+    console.log(res.status); 
+}; 
 
-// registerSw();
-// registerSw();
-// registerSw();
-registerSw();
-
+registerSw(); 
