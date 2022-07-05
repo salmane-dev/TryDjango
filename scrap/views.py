@@ -29,9 +29,8 @@ import pprint
 # import progressbar
 # pip install progressbar2
   
-
-def custom_404(request, exception):
-    print("request")
+ 
+def handler404(request, exception): 
     print(request)
     return render(request, "scrap/404.html")
 
@@ -39,14 +38,15 @@ def custom_404(request, exception):
 
 @require_GET
 def home(request):
-   webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
-   vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
-   user = request.user
-   return render(request, 'scrap/home.html', {user: user, 'vapid_key': vapid_key})
+    webpush_settings = getattr(settings, 'WEBPUSH_SETTINGS', {})
+    vapid_key = webpush_settings.get('VAPID_PUBLIC_KEY')
+    user = request.user 
+    return render(request, 'scrap/home.html', {user: user, 'vapid_key': vapid_key})
  
 @require_POST
 @csrf_exempt
 def send_push(request):
+    print("send_push send_push send_push send_pushsend_push")
     try:
         print("******* ******* ******* ******* ******* ******* ******* *******")
         print(request)
@@ -94,6 +94,9 @@ def index(request):
         url = 'https://graphicmama.com/blog/page/'+str(yes)+'/' 
         r = requests.get(url, headers=headers)
         yes = yes+1
+        print("r.status_code")
+        print(r.status_code)
+        print("r.status_code") 
         if r.status_code == 200:
             soup = BeautifulSoup(r.content, features="html.parser")
             articles = soup.find_all('li', class_ = 'post')
@@ -106,8 +109,9 @@ def index(request):
                                     'img':img,
                                     'mylink':my_link 
                                     })  
-        else:
-                return HttpResponse('<h1>4040404040404<h1>', status=404)
+        else: 
+            print("404 index")
+            return render(request, 'scrap/404.html', context={'go':{'article':'404', 'page':'0'}})
     return render(request, 'scrap/index.html', context={'articles':articles_list, 'page':yes-1})
 
 
@@ -149,12 +153,14 @@ def more_blogs(request):
     return JsonResponse(data,safe=False)
 
 
- 
+
 def blog(request, question_id):  
+    print("requestrequest")
+    print("requestrequest")
     url = 'https://graphicmama.com/blog/'+ question_id
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36'}
     r = requests.get(url, headers=headers)
-    print("r.status_code")  
+    print("r.status_code")
     print(r.status_code)
     if r.status_code == 200: 
         soup = BeautifulSoup(r.content, features="html.parser")
@@ -163,7 +169,5 @@ def blog(request, question_id):
         article = str(article).replace('[','\n').replace(']','\n')
         return render(request, 'scrap/blog.html',  context={'go':{'article':article , 'title':title}})
     else:
+        print("404 4040 4040 40 40 40 4455555555")
         return render(request, 'scrap/404.html', context={'go':{'article':'404', 'page':'0'}})
-
-
-  

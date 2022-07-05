@@ -12,12 +12,12 @@
             <div id="posts" class="row d-flex justify-content-between justify-content-md-center m-0">
               {% for article in articles %}
                <div class="col-lg-4 p-3">
-                  <a href="{{ article.mylink }}"  class="col-lg-3 gotoblogo">
+                  <a href="blog/{{ article.mylink }}"  class="col-lg-3 ">
                       <div>
                           <img src={{ article.img }} alt={{ article.text }} class="w-100">
                       </div>
-                      <h5>{{ article.text }}</h5>
-                  </a>
+                      <h5>{{ article.text }}  </h5>
+                  </a> 
                 </div>
               {% endfor %}
             </div>
@@ -52,6 +52,7 @@
   //  Load more blogs //
 
   $(".load_more").click(function(){
+    console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
     $(".load_more").addClass("not-visible");
     const spinner = document.getElementById('spinner');
     $("#spinner").removeClass("not-visible");
@@ -89,17 +90,20 @@
               });
             }
             else{
-              $(this).text("traaaaaaa");
+              $(this).text("traaaaaaa");      
+              console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
+
             }
     });
 
 
     $(".gotoblogo__").click(function(e){
+      console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
       e.preventDefault();
       go = this.href.substring(this.href.lastIndexOf('/') + 1)
       title = this.innerText
       if(this.innerText){
-        // alert(this.innerText)
+        alert(this.innerText)
         $.ajax({
                 url: "http://127.0.0.1:8000/scrap/"+go+"/?title="+title,
                 type: 'GET',
@@ -111,16 +115,20 @@
                     // const data = JSON.parse(response)   
                     console.log(this.href)
                     window.location.assign(this.href);
+                    console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
+
                 },
                 error: function (err) {
                     console.log(err);
+                    console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
+
                 },
             });
             }
             else{
               $(this).text("traaaaaaa");  
             }
-            console.log("go wlla sssssssssssssssssssss s")
+            console.log("go wlla sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss s")
 
 
     })

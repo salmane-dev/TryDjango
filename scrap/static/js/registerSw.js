@@ -88,7 +88,7 @@ const sendSubData = async (subscription) => {
 };
 
 const handleResponse = (res) => {
-    console.log(res.status); 
+    //console.log(res.status); 
 }; 
 
 registerSw(); 
