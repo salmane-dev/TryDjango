@@ -11485,4 +11485,10 @@ form > button:disabled {
   cursor: not-allowed;
 }
 
+
+.not-visible{
+  display: none !important;
+  transition:opacity 5s linear !important;
+}
+
 /* end of home.html styling */

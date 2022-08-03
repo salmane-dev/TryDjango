@@ -30,31 +30,34 @@ pushForm.addEventListener('submit', async function (e) {
             }
         });
         if (res.status === 200) { 
+            console.log( " 200 == "+res.status)
             msgs.innerText = 'Send another 😃!';
             button.disabled = false;
-            input.value = '';
-            msgs.innerText = 'Something broke 😢..  Try again!';
+            input.value = ''; 
             textarea.innerText = '';
         } else {
+            console.log(res.status)
             console.log("50  50 5 50 50 50505 50")
             errorMsg.innerText = res.message;
-            button.innerText = 'Something broke 😢..  Try again?';
+            //button.innerText = 'Something broke 😢..  Try again?';
             button.disabled = false;
-            msgs.innerText = 'Something broke 😢..  Try again!';
-
+           //msgs.innerText = 'Something broke 😢..  Try again!';
         }
     }
     else {
         let error;
         if (!head || !body){
             error = 'Please ensure you complete the form 🙏🏾'
-            msgs.innerText = '';
-
+            msgs.innerText = error;
+            console.log(res.status)
         }
         else if (!id){
             error = "Are you sure you're logged in? 🤔. Make sure! 👍🏼"
             msgs.innerText = '';
         }
         errorMsg.innerText = error;
+        console.log(res.status)
     }    
 });
+
+ 
